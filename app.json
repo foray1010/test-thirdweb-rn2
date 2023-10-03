@@ -15,16 +15,31 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.alexea.testthirdwebrn2"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.alexea.testthirdwebrn2"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "fb7c9479-4bf8-49a2-933a-59ca3958467d"
+      }
+    },
+    "owner": "alex-ea",
+    "runtimeVersion": "1.0.0",
+    "updates": {
+      "url": "https://u.expo.dev/fb7c9479-4bf8-49a2-933a-59ca3958467d",
+      "requestHeaders": {
+        "expo-channel-name": "main"
+      }
     }
   }
 }
