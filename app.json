@@ -11,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.alexea.testthirdwebrn2"
@@ -40,6 +38,19 @@
       "requestHeaders": {
         "expo-channel-name": "main"
       }
-    }
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "minSdkVersion": 23
+          },
+          "ios": {
+            "deploymentTarget": "17.0"
+          }
+        }
+      ]
+    ]
   }
 }
