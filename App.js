@@ -7,9 +7,12 @@ import {
   ThirdwebProvider,
   metamaskWallet,
   useSwitchChain,
+  walletConnect,
 } from "@thirdweb-dev/react-native";
 import { useCallback, useState } from "react";
 import {
+  Button,
+  Modal,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -21,6 +24,8 @@ import {
 import { THIRDWEB_CLIENT_ID } from "./config.js";
 
 function AppInner() {
+  const [modalVisible, setModalVisible] = useState(false);
+
   const [logs, setLogs] = useState([]);
   const appendLog = useCallback((log) => {
     setLogs((prevLogs) => [...prevLogs, log]);
@@ -30,10 +35,32 @@ function AppInner() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <ConnectWallet />
+      <ConnectWallet buttonTitle="Connect Wallet Outside of Modal" />
 
-        <View style={{ gap: 16 }}>
+      <ScrollView>
+        <Button
+          title="Open Connect Wallet Modal"
+          onPress={() => setModalVisible(true)}
+        />
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => setModalVisible(false)}
+        >
+          <View
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          >
+            <Button
+              title="Close modal"
+              onPress={() => setModalVisible(false)}
+            />
+            <ConnectWallet buttonTitle="Connect Wallet In Modal" />
+          </View>
+        </Modal>
+
+        {/* <View style={{ gap: 16 }}>
           <TouchableOpacity
             onPress={async () => {
               try {
@@ -43,7 +70,7 @@ function AppInner() {
                 appendLog(
                   `Failed to switch to mumbai: ${
                     error instanceof Error ? error.message : String(error)
-                  }`
+                  }`,
                 );
               }
             }}
@@ -60,7 +87,7 @@ function AppInner() {
                 appendLog(
                   `Failed to switch to polygon mainnet: ${
                     error instanceof Error ? error.message : String(error)
-                  }`
+                  }`,
                 );
               }
             }}
@@ -77,7 +104,7 @@ function AppInner() {
                 appendLog(
                   `Failed to clear AsyncStorage: ${
                     error instanceof Error ? error.message : String(error)
-                  }`
+                  }`,
                 );
               }
             }}
@@ -92,7 +119,7 @@ function AppInner() {
               </Text>
             );
           })}
-        </View>
+        </View> */}
       </ScrollView>
     </SafeAreaView>
   );
@@ -118,7 +145,7 @@ export default function App() {
         url: "https://www.earnalliance.com",
       }}
       supportedChains={[Binance, BinanceTestnet, Mumbai, Polygon]}
-      supportedWallets={[metamaskWallet()]}
+      supportedWallets={[metamaskWallet(), walletConnect()]}
       clientId={THIRDWEB_CLIENT_ID}
     >
       <AppInner />
